@@ -1,0 +1,35 @@
+body {
+  padding-top:60px;
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.navbar-dark .navbar-brand {
+  color: #ffffff;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #ffffff;
+}
+
+.container {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.form-control {
+  background-color: #333;
+  color: #ffffff;
+  border: 1px solid #555;
+}
+
+.btn-primary {
+  background-color: #ff8800;
+  border-color: #ff8800;
+}
+
+.btn-primary:hover {
+  background-color: #e67e00;
+  border-color: #e67e00;
+}
