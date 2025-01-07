@@ -139,8 +139,8 @@
     </div>
     <Modal
       v-if="showModal"
-      :title="'確認'"
-      :bodyText="'この募集に応募します。\nよろしいですか？'"
+      :title="modalTitle"
+      :bodyText="modalBodyText"
       @closeModal="closeModal"
       @confirmAction="confirmAction"
     />
@@ -163,6 +163,9 @@ const route = useRoute();
 const router = useRouter();
 const error = ref<string[] | null>(null);
 const load = ref(false);
+const modalTitle = ref("");
+const modalBodyText = ref("");
+const modalAction = ref<"register" | "update" | "close" | null>(null);
 
 const showModal = ref(false);
 const recruitment = ref({
@@ -198,23 +201,23 @@ const onPrefectureChange = () => {
 };
 
 const submitForm = async () => {
+  if (isEdit.value) {
+    modalTitle.value = "編集";
+    modalBodyText.value = "募集を更新します。\nよろしいですか？";
+    modalAction.value = "update";
+  } else {
+    modalTitle.value = "登録";
+    modalBodyText.value = "募集を登録します。\nよろしいですか？";
+    modalAction.value = "register";
+  }
   showModal.value = true;
 };
 
 const closeRecruitment = async () => {
-  load.value = true;
-  try {
-    if (isEdit.value) {
-      const data = {
-        id: route.params.id,
-      };
-      await axios.put("close-recruitment", data);
-      router.push("/recruitment/list");
-    }
-  } catch (e) {
-    error.value = createApiError(e);
-  }
-  load.value = false;
+  modalTitle.value = "終了";
+  modalBodyText.value = "募集を終了します。\nよろしいですか？";
+  modalAction.value = "close";
+  showModal.value = true;
 };
 
 const closeModal = () => {
@@ -225,16 +228,27 @@ const confirmAction = async () => {
   closeModal();
   load.value = true;
   try {
-    if (isEdit.value) {
-      await axios.put(`recruitment/${route.params.id}`, recruitment.value);
-    } else {
+    if (modalAction.value == "update") {
+      if (isEdit.value) {
+        await axios.put(`recruitment/${route.params.id}`, recruitment.value);
+      }
+    } else if (modalAction.value == "register") {
       await axios.post("recruitment", recruitment.value);
+    } else if (modalAction.value == "close") {
+      if (isEdit.value) {
+        const data = {
+          id: route.params.id,
+        };
+        await axios.put("close-recruitment", data);
+        router.push("/recruitment/list");
+      }
     }
     router.push("/recruitment/list");
   } catch (e) {
     error.value = createApiError(e);
+  } finally {
+    load.value = false;
   }
-  load.value = false;
 };
 
 onMounted(async () => {
