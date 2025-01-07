@@ -45,7 +45,7 @@ const store = createStore({
       }
     },
     async updateProfile({ commit }, formData: any) {
-      const response = await axios.post("/user", formData, {
+      const response = await axios.post("/user/update", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

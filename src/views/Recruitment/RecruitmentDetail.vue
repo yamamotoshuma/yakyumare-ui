@@ -129,7 +129,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "@/service/axios";
 import Navbar from "@/components/Navbar.vue";
@@ -167,18 +167,17 @@ onMounted(async () => {
     const response = await axios.get(`recruitment/${route.params.id}`);
     recruitment.value = response.data;
 
-    // ログインユーザ取得
-    const userRes = await store.dispatch("checkAuthStatus");
-    console.log(userRes.data);
-    user.value = userRes.data.id ? userRes.data : null;
-
     // コメント取得
     const commentRes = await axios.get("comment", {
       params: {
         recruitment_id: recruitment.value.id,
       },
     });
-    comments.value = commentRes.data ? commentRes.data : null;
+    comments.value.push(...commentRes.data);
+
+    // ログインユーザ取得
+    const userRes = await store.dispatch("checkAuthStatus");
+    user.value = userRes.data.id ? userRes.data : null;
   } catch (e) {
     console.log(e);
   }
