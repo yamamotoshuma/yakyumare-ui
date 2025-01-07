@@ -74,7 +74,8 @@
       <div class="card-bottom">
         <button
           v-if="
-            (user && user.id != recruitment.user.id) ||
+            user &&
+            user.id != recruitment.user.id &&
             !hasApplicationByApplyUserId(recruitment.applications)
           "
           class="btn btn-primary apply-btn bottom-btn"
