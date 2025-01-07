@@ -12,11 +12,20 @@
     <template #additional-top-fields>
       <div class="mb-3 text-center">
         <img
+          v-if="avatarPreview"
+          :src="avatarPreview"
+          alt="Avatar Preview"
+          style="width: 100px; height: 100px; object-fit: cover"
+          class="rounded-circle mt-3"
+        />
+        <img
+          v-else
           :src="getProfileUrl(user)"
           alt="User Avatar"
           class="rounded-circle mb-3"
           style="width: 100px; height: 100px; object-fit: cover"
         />
+
         <input type="file" @change="onFileChange" class="form-control" />
       </div>
     </template>
@@ -138,13 +147,20 @@ const onFileChange = (e: Event) => {
 };
 
 const updateProfile = async (formData: any) => {
+  const updateFormData = new FormData();
+  Object.entries(formData).forEach(([key, value]) => {
+    if (value !== null && value !== undefined) {
+      updateFormData.append(key, value as string);
+    }
+  });
+
   if (avatar.value) {
-    formData.append("avatar", avatar.value);
+    updateFormData.append("avatar", avatar.value);
   }
 
   try {
     load.value = true;
-    await store.dispatch("updateProfile", formData);
+    await store.dispatch("updateProfile", updateFormData);
     router.push("/user/myPage");
   } catch (e) {
     error.value = createApiError(e);
