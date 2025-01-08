@@ -26,7 +26,9 @@
               <div class="chat-info">
                 <strong>{{ chat.user.name }}</strong>
                 <br />
-                <small>{{ chat.lastMessage }}</small>
+                <small class="last-message text-truncate">{{
+                  chat.lastMessage
+                }}</small>
               </div>
               <span
                 v-if="chat.unreadCount"
@@ -145,7 +147,7 @@
                 placeholder="メッセージを入力"
                 :rows="isMobile ? 1 : 3"
                 @input="autoGrow"
-                @keydown.enter.exact.prevent="isMobile ? null : sendMessage"
+                @keydown.alt.enter.exact.prevent="sendMessage"
                 @keydown.ctrl.enter.exact.prevent="sendMessage"
                 ref="messageInput"
               ></textarea>
@@ -287,6 +289,9 @@ onMounted(async () => {
 
   updateNavbarHeight();
   applyGlobalStyles();
+
+  // 初期表示時最上段にスクロール
+  window.scrollTo(0, 0);
 
   window.Echo.channel(import.meta.env.VITE_PUSER_CHANNEL).listen(
     "MessageSent",
@@ -533,6 +538,11 @@ const updateApproval = async (id: string, approval: boolean) => {
   border-right: 1px solid #ddd;
   height: 100%;
   overflow-y: auto;
+}
+
+.last-message {
+  display: inline-block;
+  max-width: 200px;
 }
 
 .list-group-item {
