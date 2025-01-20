@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <UserForm
       title="お問い合わせ"
       submitButtonText="送信"
@@ -18,7 +17,6 @@ import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import axios from "@/service/axios";
 import { createApiError } from "@/service/errorService.ts";
-import Navbar from "@/components/Navbar.vue";
 import LoadingScreen from "@/components/LoadingScreen.vue";
 import UserForm from "@/components/UserForm.vue";
 

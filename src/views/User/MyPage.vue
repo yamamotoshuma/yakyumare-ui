@@ -1,5 +1,4 @@
 <template>
-  <Navbar />
   <div
     class="container d-flex flex-column flex-md-row justify-content-center align-items-md-start mt-8 mb-2"
     style="min-height: 100vh"
@@ -128,7 +127,6 @@
 
 <script setup lang="ts">
 import store from "@/store";
-import Navbar from "@/components/Navbar.vue";
 import RecruitmentList from "@/components/RecruitmentList.vue";
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";

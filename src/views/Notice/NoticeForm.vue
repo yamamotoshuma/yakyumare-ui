@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <div class="container mt-5">
       <h1 class="mb-4">{{ isEdit ? "お知らせの修正" : "お知らせの作成" }}</h1>
       <form @submit.prevent="submitForm">
@@ -68,7 +67,6 @@
 import { ref, computed, onMounted } from "vue";
 import axios from "@/service/axios";
 import { useRoute, useRouter } from "vue-router";
-import Navbar from "@/components/Navbar.vue";
 import { createApiError } from "@/service/errorService";
 
 const route = useRoute();

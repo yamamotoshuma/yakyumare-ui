@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <UserForm
       title="パスワードリセット"
       submitButtonText="パスワードリセット"
@@ -34,7 +33,6 @@
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import axios from "@/service/axios";
-import Navbar from "@/components/Navbar.vue";
 import LoadingScreen from "@/components/LoadingScreen.vue";
 import UserForm from "@/components/UserForm.vue";
 import { createApiError } from "@/service/errorService";

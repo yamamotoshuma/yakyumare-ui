@@ -1,5 +1,4 @@
 <template>
-  <Navbar />
   <UserForm
     v-if="user"
     title="プロフィール編集"
@@ -56,7 +55,6 @@
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 import store from "@/store";
-import Navbar from "@/components/Navbar.vue";
 import LoadingScreen from "@/components/LoadingScreen.vue";
 import { createApiError } from "@/service/errorService";
 import { getProfileUrl } from "@/service/profileImage";

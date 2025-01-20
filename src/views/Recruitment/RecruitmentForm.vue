@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <div class="container">
       <h2 class="text-center mb-4">
         <i class="bi bi-pencil-square me-2" aria-hidden="true"></i>
@@ -152,7 +151,6 @@
 import { ref, computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "@/service/axios";
-import Navbar from "@/components/Navbar.vue";
 import { prefectures } from "@/const/prefectures";
 import user from "@/store";
 import LoadingScreen from "@/components/LoadingScreen.vue";
