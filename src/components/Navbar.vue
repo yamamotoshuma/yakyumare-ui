@@ -35,7 +35,11 @@
         >再送信はこちらから</a
       >
     </div>
-    <div class="fixed-top border-bottom border-warning" ref="navbarElement">
+    <div
+      id="nav-bar"
+      class="fixed-top border-bottom border-warning"
+      ref="navbarElement"
+    >
       <div class="bg-orange header-ws">
         <p class="mb-0 header-text title-inner">
           草野球専門の総合掲示板やきゅま~れ
@@ -66,7 +70,11 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-white">
         <div class="container-fluid">
           <router-link class="navbar-brand" to="/">
-            <img src="/header-logo.png" alt="やきゅま~れ" class="header-logo" />
+            <img
+              src="/header-logo.webp"
+              alt="やきゅま~れ"
+              class="header-logo"
+            />
           </router-link>
           <button
             class="navbar-toggler d-lg-none"

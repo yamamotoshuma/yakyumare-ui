@@ -1,13 +1,16 @@
 <template>
   <div id="app">
+    <Navbar />
     <router-view />
+    <footer class="border-top border-warning">
+      <p class="footer-text">© All rights reserved by Yakyuma-re</p>
+    </footer>
   </div>
-  <footer class="border-top border-warning">
-    <p class="footer-text">© All rights reserved by Yakyuma-re</p>
-  </footer>
 </template>
 
-<script setup></script>
+<script setup>
+import Navbar from "./components/Navbar.vue";
+</script>
 
 <style>
 body {

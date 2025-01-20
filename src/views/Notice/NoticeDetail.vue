@@ -1,11 +1,10 @@
 <template>
   <div>
-    <Navbar />
     <div class="container mt-5 mb-5">
       <h1 class="mb-4">{{ notice.title }}</h1>
       <div class="card">
         <div class="card-body">
-          <div v-html="parsedContent"></div>
+          <div class="text-break prewrap-text">{{ notice.content }}</div>
           <p class="text-muted" v-if="notice.created_at">
             {{ new Date(notice.created_at).toLocaleDateString() }}
           </p>
@@ -21,7 +20,6 @@ import { ref, onMounted, computed } from "vue";
 import axios from "@/service/axios";
 import { useRoute } from "vue-router";
 import sanitize from "@/service/marked";
-import Navbar from "@/components/Navbar.vue";
 
 const route = useRoute();
 const notice = ref({});
@@ -65,5 +63,9 @@ onMounted(() => {
 .btn-primary:hover {
   background-color: #e67e22;
   border-color: #e67e22;
+}
+
+.prewrap-text {
+  white-space: pre-wrap;
 }
 </style>

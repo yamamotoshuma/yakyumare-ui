@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <UserForm
       title="パスワードリセット"
       submitButtonText="リセットリンク送信"
@@ -23,7 +22,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import axios from "@/service/axios";
-import Navbar from "@/components/Navbar.vue";
 import UserForm from "@/components/UserForm.vue";
 import { createApiError } from "@/service/errorService";
 import LoadingScreen from "@/components/LoadingScreen.vue";

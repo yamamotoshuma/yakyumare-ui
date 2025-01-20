@@ -1,5 +1,4 @@
 <template>
-  <Navbar />
   <div class="container mb-5">
     <h1>メール確認が完了しました</h1>
     <p>あなたのメールアドレスは正常に確認されました。</p>
@@ -8,9 +7,7 @@
   <div style="height: 450px"></div>
 </template>
 
-<script setup>
-import Navbar from "@/components/Navbar.vue";
-</script>
+<script setup></script>
 
 <style scoped>
 .container {
