@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <UserForm
       title="アカウント新規作成"
       submitButtonText="登録"
@@ -39,7 +38,6 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import Navbar from "@/components/Navbar.vue";
 import LoadingScreen from "@/components/LoadingScreen.vue";
 import UserForm from "@/components/UserForm.vue";
 import { createApiError } from "@/service/errorService";

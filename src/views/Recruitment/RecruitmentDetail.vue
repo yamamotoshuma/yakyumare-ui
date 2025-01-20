@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <div class="container" v-if="recruitment">
       <div
         v-if="
@@ -132,7 +131,6 @@
 import { ref, onMounted, computed, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "@/service/axios";
-import Navbar from "@/components/Navbar.vue";
 import CommentList from "@/components/CommentList.vue";
 import CommentForm from "@/components/CommentForm.vue";
 import LoadingScreen from "@/components/LoadingScreen.vue";
@@ -157,7 +155,7 @@ const applicationCount = computed(
 const approvalCount = computed(
   () =>
     recruitment.value?.applications?.filter(
-      (application) => application.status === "approved"
+      (application) => application.approval
     ).length || 0
 );
 

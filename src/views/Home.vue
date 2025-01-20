@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Navbar from "@/components/Navbar.vue";
 import NoticesList from "@/components/NoticeList.vue";
 import axios from "@/service/axios";
 import { ref, onMounted } from "vue";
@@ -93,9 +92,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Navbar />
   <div class="main-visual">
-    <img src="/main-visual.png" alt="Main Visual" class="main-visual-image" />
+    <img src="/main-visual.webp" alt="Main Visual" class="main-visual-image" />
   </div>
   <div class="container mt-5" style="min-height: 100vh">
     <NoticesList class="mb-4"></NoticesList>

@@ -1,6 +1,5 @@
 <template>
   <div :class="{ 'mobile-chat': isMobileChat }">
-    <Navbar v-if="!isMobile || !selectedChat" ref="navbar" />
     <div
       class="container"
       :class="{ 'mobile-chat-container': isMobileChat, 'mt-2': !isMobile }"
@@ -177,7 +176,6 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, nextTick, watch, onUnmounted } from "vue";
 import axios from "@/service/axios";
-import Navbar from "@/components/Navbar.vue";
 import LoadingScreen from "@/components/LoadingScreen.vue";
 import Modal from "@/components/Modal.vue";
 import store from "@/store";
@@ -216,7 +214,6 @@ interface Application {
 
 const isMobile = ref(false);
 const selectedChat = ref<Chat | null>(null);
-const navbar = ref<InstanceType<typeof Navbar> | null>(null);
 const chats = ref<Chat[]>([]);
 const messages = ref<Message[]>([]);
 const userId = ref("");
@@ -237,7 +234,7 @@ const isMobileChat = computed(() => {
 
 const containerStyle = computed(() => {
   if (isMobileChat.value) {
-    return { height: "100vh", margin: 0 };
+    return { height: `calc(100vh - ${navbarHeight.value}px)`, margin: 0 };
   } else {
     return { height: `calc(100vh - ${navbarHeight.value}px)` };
   }
@@ -277,6 +274,9 @@ const applyGlobalStyles = () => {
 };
 
 onMounted(async () => {
+  // 初期表示時最上段にスクロール
+  window.scrollTo(0, 0);
+
   selectedChat.value = null;
   const res = await axios.get("talk");
   chats.value = res.data;
@@ -289,9 +289,6 @@ onMounted(async () => {
 
   updateNavbarHeight();
   applyGlobalStyles();
-
-  // 初期表示時最上段にスクロール
-  window.scrollTo(0, 0);
 
   window.Echo.channel(import.meta.env.VITE_PUSER_CHANNEL).listen(
     "MessageSent",
@@ -371,8 +368,9 @@ const handleResize = () => {
 
 const updateNavbarHeight = () => {
   nextTick(() => {
-    if (navbar.value) {
-      navbarHeight.value = navbar.value.getNavbarHeight();
+    const navbar = document.getElementById("nav-bar");
+    if (navbar) {
+      navbarHeight.value = navbar.clientHeight;
     }
   });
 };
@@ -692,11 +690,6 @@ const updateApproval = async (id: string, approval: boolean) => {
 }
 
 .mobile-chat {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   z-index: 1000;
   background-color: white;
 }

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <div class="container" style="min-height: 100vh">
       <div class="card-top">
         <router-link
@@ -130,7 +129,6 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
 import axios from "@/service/axios";
-import Navbar from "@/components/Navbar.vue";
 import { prefectures } from "@/const/prefectures";
 import RecruitmentList from "@/components/RecruitmentList.vue";
 
