@@ -3,5 +3,5 @@ export function getProfileUrl(user: any): string {
     ? user.avatar.includes("http")
       ? user.avatar
       : `${`${import.meta.env.VITE_STORAGE_URL}/${user.avatar}`}`
-    : "https://via.placeholder.com/150";
+    : `${import.meta.env.VITE_STORAGE_URL}/avatars/placeholder.png`;
 }
