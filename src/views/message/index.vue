@@ -265,7 +265,6 @@ const formatTime = (date: string) => {
 const applyGlobalStyles = () => {
   document.documentElement.style.overflow = "hidden";
   document.body.style.overflow = "hidden";
-
   if (isMobileChat.value) {
     document.body.style.margin = "0";
   } else {
@@ -284,12 +283,6 @@ onMounted(async () => {
   const response = await store.dispatch("checkAuthStatus");
   userId.value = response.data.id;
 
-  isMobile.value = window.innerWidth <= 768;
-  window.addEventListener("resize", handleResize);
-
-  updateNavbarHeight();
-  applyGlobalStyles();
-
   window.Echo.channel(import.meta.env.VITE_PUSER_CHANNEL).listen(
     "MessageSent",
     handleMessageSent
@@ -299,6 +292,14 @@ onMounted(async () => {
     "SetRead",
     handleSetRead
   );
+
+  isMobile.value = window.innerWidth <= 768;
+  window.addEventListener("resize", handleResize);
+
+  nextTick(() => {
+    updateNavbarHeight();
+    applyGlobalStyles();
+  });
 });
 
 const handleMessageSent = async (e: any) => {

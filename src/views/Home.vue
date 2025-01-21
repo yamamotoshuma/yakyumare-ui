@@ -93,7 +93,13 @@ onMounted(async () => {
 
 <template>
   <div class="main-visual">
-    <img src="/main-visual.webp" alt="Main Visual" class="main-visual-image" />
+    <img
+      src="/main-visual.webp"
+      alt="Main Visual"
+      class="main-visual-image"
+      width="100%"
+      height="auto"
+    />
   </div>
   <div class="container mt-5" style="min-height: 100vh">
     <NoticesList class="mb-4"></NoticesList>
