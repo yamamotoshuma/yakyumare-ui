@@ -165,6 +165,8 @@ onMounted(async () => {
     const response = await axios.get(`recruitment/${route.params.id}`);
     recruitment.value = response.data;
 
+    document.title = recruitment.value.title + " | やきゅま～れ";
+
     // コメント取得
     const commentRes = await axios.get("comment", {
       params: {

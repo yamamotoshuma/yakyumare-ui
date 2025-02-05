@@ -9,7 +9,6 @@ import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
-import "highlight.js/styles/atom-one-dark.css";
 import vue3GoogleLogin from "vue3-google-login";
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";

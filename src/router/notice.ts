@@ -4,6 +4,7 @@ export default {
       path: "/notice/:id",
       name: "NoticeDetail",
       component: () => import("@/views/Notice/NoticeDetail.vue"),
+      meta: { title: "お知らせ" },
     },
     {
       path: "/notice/create",

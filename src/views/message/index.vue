@@ -174,7 +174,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, nextTick, watch, onUnmounted } from "vue";
+import {
+  ref,
+  onMounted,
+  computed,
+  nextTick,
+  watch,
+  onUnmounted,
+  defineEmits,
+} from "vue";
 import axios from "@/service/axios";
 import LoadingScreen from "@/components/LoadingScreen.vue";
 import Modal from "@/components/Modal.vue";
@@ -212,6 +220,7 @@ interface Application {
   approval: boolean;
 }
 
+const emit = defineEmits(["toggle-header"]);
 const isMobile = ref(false);
 const selectedChat = ref<Chat | null>(null);
 const chats = ref<Chat[]>([]);
@@ -262,20 +271,7 @@ const formatTime = (date: string) => {
   });
 };
 
-const applyGlobalStyles = () => {
-  document.documentElement.style.overflow = "hidden";
-  document.body.style.overflow = "hidden";
-  if (isMobileChat.value) {
-    document.body.style.margin = "0";
-  } else {
-    document.body.style.margin = "";
-  }
-};
-
 onMounted(async () => {
-  // 初期表示時最上段にスクロール
-  window.scrollTo(0, 0);
-
   selectedChat.value = null;
   const res = await axios.get("talk");
   chats.value = res.data;
@@ -298,7 +294,6 @@ onMounted(async () => {
 
   nextTick(() => {
     updateNavbarHeight();
-    applyGlobalStyles();
   });
 });
 
@@ -354,17 +349,14 @@ const handleSetRead = async (e: any) => {
 };
 
 onUnmounted(() => {
+  hideHeaderTemporarily(true);
   window.removeEventListener("resize", handleResize);
   selectedChat.value = null;
-  document.documentElement.style.overflow = "";
-  document.body.style.overflow = "";
-  document.body.style.margin = "";
 });
 
 const handleResize = () => {
   isMobile.value = window.innerWidth <= 768;
   updateNavbarHeight();
-  applyGlobalStyles();
 };
 
 const updateNavbarHeight = () => {
@@ -373,18 +365,23 @@ const updateNavbarHeight = () => {
     if (navbar) {
       navbarHeight.value = navbar.clientHeight;
     }
+    if (isMobile.value && selectedChat.value) {
+      hideHeaderTemporarily(false);
+    } else {
+      hideHeaderTemporarily(true);
+    }
   });
 };
 
 watch([isMobile, selectedChat], () => {
   updateNavbarHeight();
-  applyGlobalStyles();
 });
 
 const selectChat = async (chat: Chat) => {
   selectedChat.value = chat;
   load.value = true;
   try {
+    if (isMobile.value) hideHeaderTemporarily(false);
     messages.value = await fetchMessages(chat.id);
     nextTick(() => {
       scrollToBottom();
@@ -399,6 +396,7 @@ const selectChat = async (chat: Chat) => {
 
 const deselectChat = () => {
   selectedChat.value = null;
+  hideHeaderTemporarily(true);
   messages.value = [];
 };
 
@@ -518,6 +516,10 @@ const updateApproval = async (id: string, approval: boolean) => {
     console.error("承認の更新に失敗しました:", e);
     load.value = false;
   }
+};
+
+const hideHeaderTemporarily = (value: boolean) => {
+  emit("toggle-header", value);
 };
 </script>
 
